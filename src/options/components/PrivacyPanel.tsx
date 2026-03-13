@@ -15,21 +15,21 @@ export function PrivacyPanel() {
   useEffect(() => {
     chrome.storage.local
       .get({
-        emailchain_retention_days: 90,
-        emailchain_notifications_enabled: true,
+        offerbound_retention_days: 90,
+        offerbound_notifications_enabled: true,
       })
       .then((data) => {
         setPrefs({
-          retention_days: data["emailchain_retention_days"] as number,
-          notifications_enabled: data["emailchain_notifications_enabled"] as boolean,
+          retention_days: data["offerbound_retention_days"] as number,
+          notifications_enabled: data["offerbound_notifications_enabled"] as boolean,
         });
       });
   }, []);
 
   const handleSave = async () => {
     await chrome.storage.local.set({
-      emailchain_retention_days: prefs.retention_days,
-      emailchain_notifications_enabled: prefs.notifications_enabled,
+      offerbound_retention_days: prefs.retention_days,
+      offerbound_notifications_enabled: prefs.notifications_enabled,
     });
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
@@ -42,7 +42,7 @@ export function PrivacyPanel() {
           Privacy & Notifications
         </h2>
         <p className="mt-1 text-sm text-gray-500">
-          Control how EmailChain stores and uses your data.
+          Control how OfferBound stores and uses your data.
         </p>
       </div>
 

@@ -1,13 +1,13 @@
 import { openDB, type IDBPDatabase } from "idb";
-import type { EmailChainDB } from "./schema";
+import type { OfferBoundDB } from "./schema";
 import { DB_NAME, DB_VERSION } from "@/shared/constants";
 
-let dbInstance: IDBPDatabase<EmailChainDB> | null = null;
+let dbInstance: IDBPDatabase<OfferBoundDB> | null = null;
 
-export async function getDb(): Promise<IDBPDatabase<EmailChainDB>> {
+export async function getDb(): Promise<IDBPDatabase<OfferBoundDB>> {
   if (dbInstance) return dbInstance;
 
-  dbInstance = await openDB<EmailChainDB>(DB_NAME, DB_VERSION, {
+  dbInstance = await openDB<OfferBoundDB>(DB_NAME, DB_VERSION, {
     upgrade(db, oldVersion) {
       switch (oldVersion) {
         case 0: {
@@ -48,7 +48,7 @@ export async function getDb(): Promise<IDBPDatabase<EmailChainDB>> {
       }
     },
     blocked() {
-      console.warn("[EmailChain] DB upgrade blocked by another tab");
+      console.warn("[OfferBound] DB upgrade blocked by another tab");
     },
     blocking() {
       dbInstance?.close();

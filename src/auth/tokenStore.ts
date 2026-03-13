@@ -5,9 +5,9 @@ import {
 } from "@/shared/constants";
 import { logger } from "@/shared/logger";
 
-const ACCESS_TOKEN_KEY = "emailchain_access_token";
-const TOKEN_EXPIRY_KEY = "emailchain_token_expiry";
-const LOGIN_HINT_KEY = "emailchain_login_hint"; // persisted for silent refresh
+const ACCESS_TOKEN_KEY = "offerbound_access_token";
+const TOKEN_EXPIRY_KEY = "offerbound_token_expiry";
+const LOGIN_HINT_KEY = "offerbound_login_hint"; // persisted for silent refresh
 
 const EXPIRY_BUFFER_MS = 5 * 60 * 1000; // refresh 5 min early
 
@@ -61,8 +61,8 @@ export async function launchImplicitFlow({
   const redirectUri = chrome.identity.getRedirectURL();
 
   // Log so you can verify this matches Google Cloud Console exactly
-  console.log("[JobFlow] redirect_uri:", JSON.stringify(redirectUri));
-  console.log("[JobFlow] client_id:", GOOGLE_CLIENT_ID);
+  console.log("[OfferBound] redirect_uri:", JSON.stringify(redirectUri));
+  console.log("[OfferBound] client_id:", GOOGLE_CLIENT_ID);
 
   const params = new URLSearchParams({
     client_id: GOOGLE_CLIENT_ID,

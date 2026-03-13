@@ -79,14 +79,14 @@ async function handleAsync(
 
     case "GET_SYNC_STATUS": {
       const localData = await chrome.storage.local.get([
-        "emailchain_last_sync_at",
-        "emailchain_syncing",
+        "offerbound_last_sync_at",
+        "offerbound_syncing",
       ]);
       sendResponse({
         ok: true,
         data: {
-          last_sync_at: localData["emailchain_last_sync_at"] ?? null,
-          syncing: localData["emailchain_syncing"] ?? false,
+          last_sync_at: localData["offerbound_last_sync_at"] ?? null,
+          syncing: localData["offerbound_syncing"] ?? false,
         },
       });
       break;

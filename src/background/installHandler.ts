@@ -15,9 +15,9 @@ export async function onInstalled(
 
     // Set default preferences
     await chrome.storage.local.set({
-      emailchain_onboarding: true,
-      emailchain_retention_days: 90,
-      emailchain_notifications_enabled: true,
+      offerbound_onboarding: true,
+      offerbound_retention_days: 90,
+      offerbound_notifications_enabled: true,
     });
 
     // Open options page for onboarding

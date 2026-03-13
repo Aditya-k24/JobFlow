@@ -116,7 +116,7 @@ export default function App() {
   useEffect(() => {
     load();
     const onChange = (changes: Record<string, chrome.storage.StorageChange>) => {
-      if ("emailchain_last_sync_at" in changes || "emailchain_syncing" in changes) load();
+      if ("offerbound_last_sync_at" in changes || "offerbound_syncing" in changes) load();
     };
     chrome.storage.local.onChanged.addListener(onChange);
     return () => chrome.storage.local.onChanged.removeListener(onChange);
@@ -238,7 +238,7 @@ function Header({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-white">EmailChain</span>
+              <span className="text-sm font-semibold text-white">OfferBound</span>
               <span className="rounded-full bg-violet-500/20 px-1.5 py-0.5 text-[10px] font-medium text-violet-300">
                 {activeCount} active
               </span>
@@ -628,7 +628,7 @@ function NotConnected() {
       </div>
       <h2 className="mb-2 text-lg font-semibold text-white">Connect your Gmail</h2>
       <p className="mb-6 text-sm text-gray-500 leading-relaxed">
-        EmailChain tracks job application emails and builds a timeline of your search — all on device.
+        OfferBound tracks job application emails and builds a timeline of your search — all on device.
       </p>
       <button
         onClick={() => chrome.runtime.openOptionsPage()}

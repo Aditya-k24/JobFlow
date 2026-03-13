@@ -23,7 +23,7 @@ export function EmptyState() {
         Connect your Gmail
       </h2>
       <p className="mb-4 text-xs text-gray-500">
-        EmailChain reads your job-related emails to build a timeline of your
+        OfferBound reads your job-related emails to build a timeline of your
         applications.
       </p>
       <button

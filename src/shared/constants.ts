@@ -1,5 +1,5 @@
-export const ALARM_NAME = "emailchain-sync";
-export const DB_NAME = "emailchain";
+export const ALARM_NAME = "offerbound-sync";
+export const DB_NAME = "offerbound";
 export const DB_VERSION = 1;
 export const EXTRACTION_VERSION = 1;
 

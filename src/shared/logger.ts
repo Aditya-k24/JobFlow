@@ -1,4 +1,4 @@
-const PREFIX = "[EmailChain]";
+const PREFIX = "[OfferBound]";
 const isDev = import.meta.env.DEV;
 
 export const logger = {

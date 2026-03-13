@@ -27,7 +27,7 @@ export function useChains() {
 
     // Re-fetch when sync completes (detected via storage change)
     const handleStorageChange = (changes: Record<string, chrome.storage.StorageChange>) => {
-      if ("emailchain_last_sync_at" in changes || "emailchain_syncing" in changes) {
+      if ("offerbound_last_sync_at" in changes || "offerbound_syncing" in changes) {
         fetchChains();
       }
     };

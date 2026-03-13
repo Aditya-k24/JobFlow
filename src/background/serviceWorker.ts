@@ -1,4 +1,4 @@
-// EmailChain Service Worker Entry Point (MV3)
+// OfferBound Service Worker Entry Point (MV3)
 // All listeners MUST be registered synchronously at the top level before any await.
 
 import { onInstalled } from "./installHandler";
@@ -62,4 +62,4 @@ chrome.notifications.onClicked.addListener(() => {
 // Our alarm-based architecture handles this — all state is persisted to storage.
 // No keep-alive hacks needed.
 
-console.log("[EmailChain] Service worker loaded");
+console.log("[OfferBound] Service worker loaded");

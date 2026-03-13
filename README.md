@@ -1,4 +1,4 @@
-# JobFlow
+# OfferBound
 
 > **Your job search, on autopilot.**
 > A Chrome extension that reads your Gmail and automatically builds a timeline of every job application — no spreadsheets, no manual logging.
@@ -14,7 +14,7 @@
 
 ## What it does
 
-JobFlow connects to your Gmail (read-only) and automatically detects job-related emails. It groups them by company, tracks where you are in the hiring process, and surfaces upcoming deadlines — all without you lifting a finger.
+OfferBound connects to your Gmail (read-only) and automatically detects job-related emails. It groups them by company, tracks where you are in the hiring process, and surfaces upcoming deadlines — all without you lifting a finger.
 
 - Detects applications, interview invites, assessments, offers, and rejections
 - Groups emails into a per-company timeline with a pipeline progress bar
@@ -36,8 +36,8 @@ JobFlow connects to your Gmail (read-only) and automatically detects job-related
 ### 2. Install and build
 
 ```bash
-git clone https://github.com/Aditya-k24/JobFlow.git
-cd JobFlow
+git clone https://github.com/Aditya-k24/OfferBound.git
+cd OfferBound
 npm install
 ```
 
@@ -57,7 +57,7 @@ npm run build
 2. Click **Load unpacked** → select the `dist/` folder
 3. Copy the **Extension ID** shown on the card
 4. Go back to Google Cloud Console and paste it into your OAuth client → Save
-5. Click the JobFlow icon in your toolbar → Settings → **Connect Gmail**
+5. Click the OfferBound icon in your toolbar → Settings → **Connect Gmail**
 
 ---
 
