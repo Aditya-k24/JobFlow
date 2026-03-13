@@ -444,54 +444,160 @@ function EventTimeline({
   events: AppEvent[];
   cfg: typeof STATUS_CONFIG[ChainStatus];
 }) {
+  const [expandedEvent, setExpandedEvent] = useState<string | null>(null);
+
   return (
     <ol className="py-1">
       {events.map((event, idx) => {
         const isHighPriority = HIGH_PRIORITY_EVENTS.has(event.event_type);
+        const isOpen = expandedEvent === event.event_id;
         const label = event.event_type
           .replace(/_/g, " ")
           .toLowerCase()
           .replace(/\b\w/g, (c) => c.toUpperCase());
 
+        const entities = event.extracted_entities ?? {};
+        const hasLinks = entities.links && entities.links.length > 0;
+        const hasDetails =
+          event.evidence ||
+          entities.recruiter_name ||
+          entities.role_raw ||
+          entities.deadline_raw ||
+          hasLinks;
+
         return (
           <li key={event.event_id} className="relative flex gap-4">
             {/* Left column: dot + line */}
             <div className="flex flex-col items-center">
-              {/* Dot */}
               <div
-                className={`relative z-10 mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
+                className={`relative z-10 mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full transition-all ${
                   isHighPriority ? cfg.dot : "bg-gray-600"
-                }`}
+                } ${isOpen ? "scale-125 ring-2 ring-white/20" : ""}`}
               />
-              {/* Connecting line */}
               {idx < events.length - 1 && (
                 <div className="mt-1 w-px flex-1 bg-white/10" />
               )}
             </div>
 
-            {/* Right column: content */}
+            {/* Right column */}
             <div className={`min-w-0 flex-1 ${idx < events.length - 1 ? "pb-4" : "pb-1"}`}>
-              <p className={`text-sm font-medium leading-snug ${isHighPriority ? "text-white" : "text-gray-400"}`}>
-                {label}
-              </p>
-              <p className="mt-0.5 text-xs text-gray-600">
-                {formatEventDate(event.event_time)}
-              </p>
-              {event.due_at && event.due_at > Date.now() && (
-                <p className="mt-1 text-xs font-medium text-amber-400">
-                  ⏰ Due {formatDeadline(event.due_at)}
-                </p>
-              )}
-              {event.evidence && (
-                <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-gray-600 italic">
-                  "{event.evidence}"
-                </p>
+              {/* Clickable header row */}
+              <button
+                onClick={() => hasDetails && setExpandedEvent(isOpen ? null : event.event_id)}
+                className={`flex w-full items-center justify-between gap-2 text-left ${hasDetails ? "cursor-pointer" : "cursor-default"}`}
+              >
+                <div>
+                  <p className={`text-sm font-medium leading-snug ${isHighPriority ? "text-white" : "text-gray-400"}`}>
+                    {label}
+                  </p>
+                  <p className="mt-0.5 text-xs text-gray-600">
+                    {formatEventDate(event.event_time)}
+                  </p>
+                  {event.due_at && event.due_at > Date.now() && (
+                    <p className="mt-0.5 text-xs font-medium text-amber-400">
+                      ⏰ Due {formatDeadline(event.due_at)}
+                    </p>
+                  )}
+                </div>
+                {hasDetails && (
+                  <svg
+                    className={`h-3.5 w-3.5 flex-shrink-0 text-gray-600 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                )}
+              </button>
+
+              {/* Expanded detail panel */}
+              {isOpen && hasDetails && (
+                <div className={`mt-2 rounded-lg border ${cfg.border} bg-white/[0.03] p-3 space-y-2`}>
+                  {entities.recruiter_name && (
+                    <DetailRow icon="👤" label="From" value={entities.recruiter_name} />
+                  )}
+                  {entities.role_raw && (
+                    <DetailRow icon="💼" label="Role" value={entities.role_raw} />
+                  )}
+                  {entities.company_raw && (
+                    <DetailRow icon="🏢" label="Company" value={entities.company_raw} />
+                  )}
+                  {event.due_at && (
+                    <DetailRow
+                      icon="⏰"
+                      label="Deadline"
+                      value={new Date(event.due_at).toLocaleString([], {
+                        month: "short", day: "numeric",
+                        hour: "2-digit", minute: "2-digit",
+                      })}
+                      highlight
+                    />
+                  )}
+                  {entities.deadline_raw && (
+                    <DetailRow icon="📋" label="Extracted text" value={entities.deadline_raw} mono />
+                  )}
+                  {hasLinks && (
+                    <div className="space-y-1">
+                      <p className="text-[10px] font-medium uppercase tracking-wide text-gray-600">
+                        🔗 Links
+                      </p>
+                      {entities.links!.map((link, i) => (
+                        <a
+                          key={i}
+                          href={link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={`block truncate text-xs ${cfg.accent} hover:underline`}
+                        >
+                          {link.replace(/^https?:\/\//, "")}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                  {event.evidence && (
+                    <div>
+                      <p className="mb-1 text-[10px] font-medium uppercase tracking-wide text-gray-600">
+                        📧 Email snippet
+                      </p>
+                      <p className="text-xs leading-relaxed text-gray-500 italic">
+                        "{event.evidence}"
+                      </p>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </li>
         );
       })}
     </ol>
+  );
+}
+
+function DetailRow({
+  icon,
+  label,
+  value,
+  highlight = false,
+  mono = false,
+}: {
+  icon: string;
+  label: string;
+  value: string;
+  highlight?: boolean;
+  mono?: boolean;
+}) {
+  return (
+    <div className="flex items-start gap-2">
+      <span className="text-xs">{icon}</span>
+      <div className="min-w-0 flex-1">
+        <span className="text-[10px] font-medium uppercase tracking-wide text-gray-600">
+          {label}{" "}
+        </span>
+        <span className={`text-xs ${highlight ? "font-medium text-amber-400" : "text-gray-300"} ${mono ? "font-mono" : ""}`}>
+          {value}
+        </span>
+      </div>
+    </div>
   );
 }
 
