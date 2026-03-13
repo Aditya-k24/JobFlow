@@ -82,16 +82,6 @@ const STATUS_CONFIG: Record<
 // Pipeline stages shown in each card's progress bar
 const PIPELINE_STAGES: ChainStatus[] = ["APPLIED", "ASSESSMENT", "INTERVIEWING", "OFFER"];
 
-const EVENT_ICONS: Record<string, string> = {
-  APPLICATION_RECEIVED: "📨",
-  REJECTION: "✗",
-  ASSESSMENT_INVITE: "📝",
-  INTERVIEW_INVITE: "🎙",
-  DEADLINE: "⏰",
-  OFFER: "🎉",
-  FOLLOW_UP: "→",
-  OTHER: "·",
-};
 
 // ─── Main App ────────────────────────────────────────────────────────────────
 export default function App() {
@@ -411,12 +401,9 @@ function PipelineBar({
       {PIPELINE_STAGES.map((stage, idx) => {
         const isActive = idx === currentIdx;
         const isDone = idx < currentIdx;
-        const stageCfg = STATUS_CONFIG[stage];
-
         return (
           <div key={stage} className="flex flex-1 items-center gap-1">
-            <div className="flex-1">
-              <div
+            <div className="flex-1"><div
                 className={`h-1 rounded-full transition-all duration-500 ${
                   isDone
                     ? `${cfg.dot} opacity-60`
@@ -437,6 +424,19 @@ function PipelineBar({
 }
 
 // ─── Event timeline ───────────────────────────────────────────────────────────
+const HIGH_PRIORITY_EVENTS = new Set([
+  "INTERVIEW_INVITE",
+  "OFFER",
+  "ASSESSMENT_INVITE",
+]);
+
+function formatEventDate(ms: number): string {
+  const date = new Date(ms);
+  return date.toLocaleDateString([], { month: "short", day: "numeric" }) +
+    " at " +
+    date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+}
+
 function EventTimeline({
   events,
   cfg,
@@ -445,42 +445,52 @@ function EventTimeline({
   cfg: typeof STATUS_CONFIG[ChainStatus];
 }) {
   return (
-    <ol className="space-y-0">
-      {events.map((event, idx) => (
-        <li key={event.event_id} className="relative flex gap-3 pb-3">
-          {/* Vertical line */}
-          {idx < events.length - 1 && (
-            <div className="absolute left-[11px] top-5 bottom-0 w-px bg-white/5" />
-          )}
+    <ol className="py-1">
+      {events.map((event, idx) => {
+        const isHighPriority = HIGH_PRIORITY_EVENTS.has(event.event_type);
+        const label = event.event_type
+          .replace(/_/g, " ")
+          .toLowerCase()
+          .replace(/\b\w/g, (c) => c.toUpperCase());
 
-          {/* Icon dot */}
-          <div className={`relative z-10 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border ${cfg.border} bg-[#0d1018] text-xs`}>
-            {EVENT_ICONS[event.event_type] ?? "·"}
-          </div>
-
-          {/* Content */}
-          <div className="min-w-0 flex-1 pt-0.5">
-            <div className="flex items-center justify-between gap-2">
-              <p className="text-xs font-medium text-gray-300">
-                {event.event_type.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())}
-              </p>
-              <span className="flex-shrink-0 text-[10px] text-gray-600">
-                {formatRelativeTime(event.event_time)}
-              </span>
+        return (
+          <li key={event.event_id} className="relative flex gap-4">
+            {/* Left column: dot + line */}
+            <div className="flex flex-col items-center">
+              {/* Dot */}
+              <div
+                className={`relative z-10 mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full ${
+                  isHighPriority ? cfg.dot : "bg-gray-600"
+                }`}
+              />
+              {/* Connecting line */}
+              {idx < events.length - 1 && (
+                <div className="mt-1 w-px flex-1 bg-white/10" />
+              )}
             </div>
-            {event.due_at && event.due_at > Date.now() && (
-              <p className="mt-0.5 text-[10px] font-medium text-amber-400">
-                ⏰ Due {formatDeadline(event.due_at)}
+
+            {/* Right column: content */}
+            <div className={`min-w-0 flex-1 ${idx < events.length - 1 ? "pb-4" : "pb-1"}`}>
+              <p className={`text-sm font-medium leading-snug ${isHighPriority ? "text-white" : "text-gray-400"}`}>
+                {label}
               </p>
-            )}
-            {event.evidence && (
-              <p className="mt-1 line-clamp-2 text-[10px] leading-relaxed text-gray-600 italic">
-                "{event.evidence}"
+              <p className="mt-0.5 text-xs text-gray-600">
+                {formatEventDate(event.event_time)}
               </p>
-            )}
-          </div>
-        </li>
-      ))}
+              {event.due_at && event.due_at > Date.now() && (
+                <p className="mt-1 text-xs font-medium text-amber-400">
+                  ⏰ Due {formatDeadline(event.due_at)}
+                </p>
+              )}
+              {event.evidence && (
+                <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-gray-600 italic">
+                  "{event.evidence}"
+                </p>
+              )}
+            </div>
+          </li>
+        );
+      })}
     </ol>
   );
 }
