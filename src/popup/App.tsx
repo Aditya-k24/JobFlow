@@ -75,7 +75,7 @@ export default function App() {
               />
             </svg>
           </div>
-          <h1 className="text-sm font-semibold text-gray-900">OfferBound</h1>
+          <h1 className="text-sm font-semibold text-gray-900">Glance AI</h1>
           {chains.length > 0 && (
             <span className="rounded-full bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500">
               {chains.filter((c) => !["REJECTED", "WITHDRAWN", "GHOSTED"].includes(c.status)).length} active

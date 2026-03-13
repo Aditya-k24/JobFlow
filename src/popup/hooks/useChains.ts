@@ -27,7 +27,7 @@ export function useChains() {
 
     // Re-fetch when sync completes (detected via storage change)
     const handleStorageChange = (changes: Record<string, chrome.storage.StorageChange>) => {
-      if ("offerbound_last_sync_at" in changes || "offerbound_syncing" in changes) {
+      if ("glanceai_last_sync_at" in changes || "glanceai_syncing" in changes) {
         fetchChains();
       }
     };

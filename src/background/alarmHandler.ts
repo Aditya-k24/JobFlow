@@ -39,8 +39,8 @@ async function fireDeadlineNotification(alarmName: string): Promise<void> {
   });
 
   const notificationsEnabled = await chrome.storage.local
-    .get("offerbound_notifications_enabled")
-    .then((d) => d["offerbound_notifications_enabled"] !== false);
+    .get("glanceai_notifications_enabled")
+    .then((d) => d["glanceai_notifications_enabled"] !== false);
 
   if (!notificationsEnabled) return;
 

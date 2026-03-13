@@ -137,7 +137,7 @@ export function AccountPanel() {
             No account connected
           </p>
           <p className="mb-4 text-xs text-gray-500">
-            OfferBound only reads emails matching job-related subjects and
+            Glance AI only reads emails matching job-related subjects and
             senders. Your emails never leave your device.
           </p>
           <button
@@ -156,7 +156,7 @@ export function AccountPanel() {
       {/* Privacy notice */}
       <div className="rounded-lg bg-blue-50 p-3">
         <p className="text-xs text-blue-700">
-          <strong>Privacy:</strong> OfferBound uses read-only Gmail access and
+          <strong>Privacy:</strong> Glance AI uses read-only Gmail access and
           processes emails locally on your device. No email content is sent to
           external servers.
         </p>

@@ -1,13 +1,13 @@
 import { openDB, type IDBPDatabase } from "idb";
-import type { OfferBoundDB } from "./schema";
+import type { GlanceAIDB } from "./schema";
 import { DB_NAME, DB_VERSION } from "@/shared/constants";
 
-let dbInstance: IDBPDatabase<OfferBoundDB> | null = null;
+let dbInstance: IDBPDatabase<GlanceAIDB> | null = null;
 
-export async function getDb(): Promise<IDBPDatabase<OfferBoundDB>> {
+export async function getDb(): Promise<IDBPDatabase<GlanceAIDB>> {
   if (dbInstance) return dbInstance;
 
-  dbInstance = await openDB<OfferBoundDB>(DB_NAME, DB_VERSION, {
+  dbInstance = await openDB<GlanceAIDB>(DB_NAME, DB_VERSION, {
     upgrade(db, oldVersion) {
       switch (oldVersion) {
         case 0: {
@@ -48,7 +48,7 @@ export async function getDb(): Promise<IDBPDatabase<OfferBoundDB>> {
       }
     },
     blocked() {
-      console.warn("[OfferBound] DB upgrade blocked by another tab");
+      console.warn("[Glance AI] DB upgrade blocked by another tab");
     },
     blocking() {
       dbInstance?.close();

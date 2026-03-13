@@ -22,7 +22,7 @@ export function useSyncStatus() {
     fetch();
 
     const handleChange = (changes: Record<string, chrome.storage.StorageChange>) => {
-      if ("offerbound_syncing" in changes || "offerbound_last_sync_at" in changes) {
+      if ("glanceai_syncing" in changes || "glanceai_last_sync_at" in changes) {
         fetch();
       }
     };

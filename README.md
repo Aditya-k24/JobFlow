@@ -1,4 +1,4 @@
-# OfferBound
+# Glance AI
 
 > **Your job search, on autopilot.**
 > A Chrome extension that reads your Gmail and automatically builds a timeline of every job application — no spreadsheets, no manual logging.
@@ -14,7 +14,7 @@
 
 ## What it does
 
-OfferBound connects to your Gmail (read-only) and automatically detects job-related emails. It groups them by company, tracks where you are in the hiring process, and surfaces upcoming deadlines — all without you lifting a finger.
+Glance AI connects to your Gmail (read-only) and automatically detects job-related emails. It groups them by company, tracks where you are in the hiring process, and surfaces upcoming deadlines — all without you lifting a finger.
 
 - Detects applications, interview invites, assessments, offers, and rejections
 - Groups emails into a per-company timeline with a pipeline progress bar
@@ -36,8 +36,8 @@ OfferBound connects to your Gmail (read-only) and automatically detects job-rela
 ### 2. Install and build
 
 ```bash
-git clone https://github.com/Aditya-k24/OfferBound.git
-cd OfferBound
+git clone https://github.com/Aditya-k24/Glance AI.git
+cd Glance AI
 npm install
 ```
 
@@ -57,7 +57,7 @@ npm run build
 2. Click **Load unpacked** → select the `dist/` folder
 3. Copy the **Extension ID** shown on the card
 4. Go back to Google Cloud Console and paste it into your OAuth client → Save
-5. Click the OfferBound icon in your toolbar → Settings → **Connect Gmail**
+5. Click the Glance AI icon in your toolbar → Settings → **Connect Gmail**
 
 ---
 

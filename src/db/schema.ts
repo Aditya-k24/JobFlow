@@ -4,7 +4,7 @@ import type { AppEvent } from "@/types/event";
 import type { AccountConnection } from "@/types/account";
 import type { MessageIndex } from "@/types/message";
 
-export interface OfferBoundDB extends DBSchema {
+export interface GlanceAIDB extends DBSchema {
   chains: {
     key: string;
     value: Chain;

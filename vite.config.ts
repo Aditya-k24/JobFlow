@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
 
   const manifest = defineManifest({
     manifest_version: 3,
-    name: "OfferBound – Job Application Tracker",
+    name: "Glance AI – Job Application Tracker",
     version: "0.1.0",
     description:
       "Automatically tracks your job applications from email, building timelines and deadline reminders.",
@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
         "16": "icons/icon16.png",
         "32": "icons/icon32.png",
       },
-      default_title: "OfferBound",
+      default_title: "Glance AI",
     },
     web_accessible_resources: [
       {

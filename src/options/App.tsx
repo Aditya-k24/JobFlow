@@ -38,7 +38,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-base font-semibold text-gray-900">
-                OfferBound Settings
+                Glance AI Settings
               </h1>
               <p className="text-xs text-gray-400">
                 Job application tracker
@@ -96,7 +96,7 @@ function AboutPanel() {
     <div className="space-y-4">
       <div>
         <h2 className="text-base font-semibold text-gray-900">
-          About OfferBound
+          About Glance AI
         </h2>
       </div>
       <div className="rounded-lg border border-gray-200 bg-white p-4 space-y-3">
@@ -107,7 +107,7 @@ function AboutPanel() {
         <hr className="border-gray-100" />
         <div>
           <p className="text-sm text-gray-600">
-            OfferBound automatically detects and organizes your job application
+            Glance AI automatically detects and organizes your job application
             emails into structured timelines. All processing happens locally on
             your device.
           </p>
@@ -115,7 +115,7 @@ function AboutPanel() {
         <hr className="border-gray-100" />
         <div>
           <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-            What OfferBound reads
+            What Glance AI reads
           </p>
           <ul className="space-y-1 text-sm text-gray-600">
             <li className="flex items-start gap-2">
@@ -132,7 +132,7 @@ function AboutPanel() {
         <hr className="border-gray-100" />
         <div>
           <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-            What OfferBound does NOT do
+            What Glance AI does NOT do
           </p>
           <ul className="space-y-1 text-sm text-gray-600">
             <li className="flex items-start gap-2">

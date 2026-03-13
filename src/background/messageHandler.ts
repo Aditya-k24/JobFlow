@@ -79,14 +79,14 @@ async function handleAsync(
 
     case "GET_SYNC_STATUS": {
       const localData = await chrome.storage.local.get([
-        "offerbound_last_sync_at",
-        "offerbound_syncing",
+        "glanceai_last_sync_at",
+        "glanceai_syncing",
       ]);
       sendResponse({
         ok: true,
         data: {
-          last_sync_at: localData["offerbound_last_sync_at"] ?? null,
-          syncing: localData["offerbound_syncing"] ?? false,
+          last_sync_at: localData["glanceai_last_sync_at"] ?? null,
+          syncing: localData["glanceai_syncing"] ?? false,
         },
       });
       break;

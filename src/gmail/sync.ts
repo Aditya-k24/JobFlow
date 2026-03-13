@@ -20,7 +20,7 @@ import {
 import { logger } from "@/shared/logger";
 import { hasStoredAuth } from "@/auth/tokenStore";
 
-const SYNCING_KEY = "offerbound_syncing";
+const SYNCING_KEY = "glanceai_syncing";
 
 /**
  * Main sync entry point. Called by alarm handler.
@@ -47,7 +47,7 @@ export async function runSync(): Promise<void> {
   } finally {
     await chrome.storage.local.set({
       [SYNCING_KEY]: false,
-      offerbound_last_sync_at: Date.now(),
+      glanceai_last_sync_at: Date.now(),
     });
   }
 }

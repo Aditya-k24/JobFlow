@@ -1,4 +1,4 @@
-const PREFIX = "[OfferBound]";
+const PREFIX = "[Glance AI]";
 const isDev = import.meta.env.DEV;
 
 export const logger = {

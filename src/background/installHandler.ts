@@ -15,9 +15,9 @@ export async function onInstalled(
 
     // Set default preferences
     await chrome.storage.local.set({
-      offerbound_onboarding: true,
-      offerbound_retention_days: 90,
-      offerbound_notifications_enabled: true,
+      glanceai_onboarding: true,
+      glanceai_retention_days: 90,
+      glanceai_notifications_enabled: true,
     });
 
     // Open options page for onboarding

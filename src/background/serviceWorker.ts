@@ -1,4 +1,4 @@
-// OfferBound Service Worker Entry Point (MV3)
+// Glance AI Service Worker Entry Point (MV3)
 // All listeners MUST be registered synchronously at the top level before any await.
 
 import { onInstalled } from "./installHandler";
@@ -62,4 +62,4 @@ chrome.notifications.onClicked.addListener(() => {
 // Our alarm-based architecture handles this — all state is persisted to storage.
 // No keep-alive hacks needed.
 
-console.log("[OfferBound] Service worker loaded");
+console.log("[Glance AI] Service worker loaded");
